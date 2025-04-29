@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unified Security Scanner Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container py-5">
+    <h2 class="text-center mb-5">Unified Security Scanner Portal</h2>
+    <form method="POST" enctype="multipart/form-data" class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h4>Phishing URL Detection</h4>
+                <input type="text" class="form-control mt-3" name="url" placeholder="Enter a URL for phishing check">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h4>Malware File Upload</h4>
+                <input type="file" class="form-control mt-3" name="malware_files" multiple>
+                <small class="text-muted mt-2 d-block">You can select multiple files.</small>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card shadow-sm p-4">
+                <h4>Threat Detection - Network CSV Upload</h4>
+                <input type="file" class="form-control mt-3" name="threat_file">
+                <small class="text-muted mt-2 d-block">Upload a CSV containing network traffic features.</small>
+            </div>
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg mt-4 px-5">Scan Now</button>
+        </div>
+    </form>
+
+    {% if phishing_result %}
+    <div class="alert alert-primary mt-5" role="alert">
+        <h5>Phishing Detection Result:</h5>
+        {{ phishing_result }}
+    </div>
+    {% endif %}
+
+    {% if malware_results %}
+    <div class="alert alert-warning mt-4" role="alert">
+        <h5>Malware Scan Results:</h5>
+        {% for result in malware_results %}
+            {{ result }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if threat_results %}
+    <div class="alert alert-success mt-4" role="alert">
+        <h5>Threat Detection and Risk Assessment:</h5>
+        {% for threat in threat_results %}
+            {{ threat }}<br>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
